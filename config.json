@@ -1,0 +1,6 @@
+{
+  "regression": {
+    "max_score_drop": 0.02,
+    "fail_on_new_regressions": true
+  }
+}
