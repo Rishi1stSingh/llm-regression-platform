@@ -98,8 +98,10 @@ Executes one evaluation:
 1. Resolves the golden dataset (`--dataset` type name or file path, else
    `evaluator.type` from `config.json`).
 2. Validates every case (`id`, `input`, `expected` non-empty, unique IDs).
-3. Evaluates each case through the resolved provider/evaluator using the prompt
-   for the chosen version (`prompts/<version>.txt`).
+3. Evaluates each case through the resolved provider/evaluator using the
+   task-specific system prompt for the chosen version (`prompts/<version>.txt`
+   for classification, `prompts/summarization_<version>.txt` for summarization,
+   `prompts/text_to_sql_<version>.txt` for text-to-SQL).
 4. Computes evaluator-specific metrics and metric regression checks.
 5. Compares against the baseline when `--baseline-version` is given.
 6. Saves the run to SQLite and writes an HTML report.
@@ -119,7 +121,7 @@ Populated from the real argparse implementation (see `uv run python main.py run 
 
 | Option | Required | Description | Example |
 | ------ | -------- | ----------- | ------- |
-| `--version` | Yes (choices: `v1`, `v2`) | Evaluation version; selects the prompt file `prompts/<version>.txt` | `--version v1` |
+| `--version` | Yes (choices: `v1`, `v2`) | Evaluation version; selects the task-specific prompt file for the evaluator (`prompts/<version>.txt`, `prompts/summarization_<version>.txt`, `prompts/text_to_sql_<version>.txt`) | `--version v1` |
 | `--baseline-version` | No | Compare against the latest successful run of this version from SQLite | `--baseline-version v1` |
 | `--provider` | No (choices: `groq`, `nvidia`, `mock`) | LLM provider override (default: `llm.provider` in `config.json`) | `--provider groq` |
 | `--mock` | No (flag) | Force the deterministic offline client | `--mock` |
@@ -252,7 +254,8 @@ See [Providing your own golden dataset](#providing-your-own-golden-dataset-no-co
 uv run python main.py run --version v2 --provider groq
 ```
 
-Each version selects its own prompt file (`prompts/v1.txt`, `prompts/v2.txt`).
+Each version selects its own task-specific prompt files
+(`prompts/v1.txt`, `prompts/summarization_v1.txt`, `prompts/text_to_sql_v1.txt`).
 
 **5. Baseline/regression comparison**
 
@@ -431,8 +434,9 @@ llm-regression-platform/
 │       ├── sql_cases.json             # Text-to-SQL golden cases
 │       └── sql_schema.sql             # SQLite schema/seed for text-to-SQL
 ├── prompts/
-│   ├── v1.txt                 # Version 1 system prompt
-│   └── v2.txt                 # Version 2 system prompt
+│   ├── v1.txt, v2.txt                    # Classification system prompts
+│   ├── summarization_v1.txt, _v2.txt     # Summarization system prompts
+│   └── text_to_sql_v1.txt, _v2.txt       # Text-to-SQL system prompts
 ├── src/
 │   ├── cli.py                 # CLI entry point and argument parsing
 │   ├── comparator.py          # Baseline comparison and metric regression checks
