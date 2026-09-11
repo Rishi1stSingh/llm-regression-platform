@@ -1,6 +1,19 @@
 {
+  "llm": {
+    "provider": "groq",
+    "concurrency": 5,
+    "requests_per_minute": 25,
+    "max_retries": 3
+  },
+  "evaluator": {
+    "type": "classification"
+  },
   "regression": {
     "max_score_drop": 0.02,
-    "fail_on_new_regressions": true
+    "fail_on_new_regressions": true,
+    "metrics": [
+      {"name": "accuracy", "max_drop": 0.02},
+      {"name": "f1", "max_drop": 0.03}
+    ]
   }
 }

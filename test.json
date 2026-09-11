@@ -1,0 +1,11 @@
+{
+  "model": "openai/gpt-oss-20b",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Reply exactly hello"
+    }
+  ],
+  "max_tokens": 10,
+  "stream": true
+}

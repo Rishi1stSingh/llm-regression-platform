@@ -1,0 +1,47 @@
+[
+  {
+    "id": "SQL_001",
+    "input": "How many customers are there in total?",
+    "expected": "SELECT COUNT(*) FROM customers",
+    "expected_result": [[8]]
+  },
+  {
+    "id": "SQL_002",
+    "input": "What are the names and emails of customers in California?",
+    "expected": "SELECT name, email FROM customers WHERE state = 'CA'",
+    "expected_result": [
+      ["Carol Davis", "carol@example.com"],
+      ["Eva Martinez", "eva@example.com"],
+      ["Grace Kim", "grace@example.com"]
+    ]
+  },
+  {
+    "id": "SQL_003",
+    "input": "What is the total revenue from all completed orders?",
+    "expected": "SELECT SUM(total_price) FROM orders WHERE status = 'completed'",
+    "expected_result": [[383.88]]
+  },
+  {
+    "id": "SQL_004",
+    "input": "List the top 3 products by category name and unit price, ordered by price descending.",
+    "expected": "SELECT name, category, unit_price FROM products ORDER BY unit_price DESC LIMIT 3",
+    "expected_result": [
+      ["Gadget Max", "Tools", 79.99],
+      ["Gadget Plus", "Tools", 49.99],
+      ["Widget Pro", "Electronics", 29.99]
+    ]
+  },
+  {
+    "id": "SQL_005",
+    "input": "Which customers placed orders for Electronics products?",
+    "expected": "SELECT DISTINCT c.name FROM customers c JOIN orders o ON c.id = o.customer_id JOIN products p ON o.product_id = p.id WHERE p.category = 'Electronics'",
+    "expected_result": [
+      ["Alice Johnson"],
+      ["Bob Smith"],
+      ["David Wilson"],
+      ["Eva Martinez"],
+      ["Frank Lee"],
+      ["Grace Kim"]
+    ]
+  }
+]
