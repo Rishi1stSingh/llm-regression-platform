@@ -2,8 +2,12 @@ from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
-from typing import Literal
+from typing import TYPE_CHECKING, Any, Literal
 from uuid import uuid4
+
+if TYPE_CHECKING:
+    from src.comparator import MetricDelta, MetricRegressionCheck
+    from src.metrics.base import MetricResult
 
 
 Status = Literal["passed", "failed"]
@@ -15,6 +19,9 @@ class GoldenCase:
     id: str
     input: str
     expected: str
+    # Optional task-specific fields (all with defaults so existing classification cases keep working)
+    expected_result: Any | None = None
+    metadata: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass
@@ -28,6 +35,7 @@ class CaseResult:
     baseline_actual: str | None = None
     baseline_passed: bool | None = None
     change: ChangeType | None = None
+    details: dict[str, Any] | None = None
 
     def to_dict(self) -> dict:
         return asdict(self)
@@ -47,6 +55,11 @@ class EvaluationRun:
     status: Status = "passed"
     regressions: int = 0
     improvements: int = 0
+    metrics: list[MetricResult] = field(default_factory=list)
+    metric_deltas: list[MetricDelta] = field(default_factory=list)
+    metric_regression_checks: list[MetricRegressionCheck] = field(default_factory=list)
+    strategy: str | None = None
+    elapsed_seconds: float | None = None
 
     def finalize_score(self) -> None:
         self.score = sum(case.passed for case in self.cases) / len(self.cases) if self.cases else 0.0

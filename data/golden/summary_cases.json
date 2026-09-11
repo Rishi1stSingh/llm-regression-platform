@@ -1,0 +1,27 @@
+[
+  {
+    "id": "SUM_001",
+    "input": "Acme Corp's Q3 financial results show total revenue of $12.5 million, representing a 15% increase compared to $10.9 million in Q2. Operating expenses rose to $4.2 million from $3.8 million last quarter. The net profit for Q3 was $8.3 million, yielding a profit margin of 66.4%. The company added 150 new enterprise customers and expanded into two new international markets: Germany and Singapore. Employee count grew to 420, up from 380 in Q2. The board approved a new $2 million R&D budget for 2025 to accelerate product development.",
+    "expected": "Acme Corp Q3 revenue reached $12.5M (up 15% from Q2), with $8.3M net profit. The company gained 150 enterprise customers, entered Germany and Singapore, and grew to 420 employees. A $2M R&D budget was approved for 2025."
+  },
+  {
+    "id": "SUM_002",
+    "input": "The Product Team completed the migration of the notification service to a new asynchronous architecture. Key changes include replacing the polling-based system with event-driven webhooks, reducing average notification latency from 4.2 seconds to 0.8 seconds. The new system supports batching, which decreased the number of API calls by 60%. Error handling was improved with automatic retries and dead-letter queues for failed messages. The migration took 3 sprints over 6 weeks with zero downtime. Post-migration monitoring shows 99.95% uptime.",
+    "expected": "The notification service was migrated to an asynchronous architecture, cutting latency from 4.2s to 0.8s and reducing API calls by 60% via batching. The 3-sprint, zero-downtime migration added retries and dead-letter queues. Post-migration uptime is 99.95%."
+  },
+  {
+    "id": "SUM_003",
+    "input": "Server maintenance scheduled for Saturday, November 14th, from 2:00 AM to 6:00 AM EST. During this window, all API endpoints will be unavailable and existing connections will be terminated. The maintenance includes upgrading the primary database cluster from PostgreSQL 14 to 16, applying OS security patches, and adding 2TB of SSD storage for improved query performance. We recommend scheduling any data processing jobs for after the maintenance window. A follow-up announcement will be sent once services are restored. For urgent issues, contact ops@company.com.",
+    "expected": "Server maintenance on Saturday, Nov 14 (2-6 AM EST) will cause API downtime. Upgrades include PostgreSQL 14 to 16, OS security patches, and 2TB SSD storage. Users should schedule jobs after the window and contact ops@company.com for urgent issues."
+  },
+  {
+    "id": "SUM_004",
+    "input": "The customer success team implemented a new tiered support model to improve response times. Tier 1 (general inquiries) now resolves 85% of tickets within 2 hours, up from 60% previously. Tier 2 (technical issues) handles 92% of escalations within 24 hours. Tier 3 (complex engineering requests) reduced average resolution time from 5.3 days to 2.1 days. Customer satisfaction scores improved from 7.2/10 to 8.6/10. The team also launched a new self-service knowledge base with 200 articles covering 90% of common questions.",
+    "expected": "A tiered support model improved Tier 1 resolution to 85% within 2 hours and Tier 2 to 92% within 24 hours. Tier 3 resolution dropped from 5.3 to 2.1 days. Customer satisfaction rose from 7.2 to 8.6/10, and a 200-article knowledge base was launched."
+  },
+  {
+    "id": "SUM_005",
+    "input": "Our platform experienced a brief service interruption on Friday between 14:30 and 15:12 UTC affecting approximately 12,000 users in the EU-West region. The root cause was traced to a misconfigured load balancer rule that caused traffic to be routed to an unhealthy instance pool. No data was lost or corrupted, and all systems returned to normal operation by 15:12 UTC. We have deployed an automated health-check that will prevent similar routing issues in the future. The incident response team is conducting a full post-mortem, with findings to be shared by end of week.",
+    "expected": "A 42-minute service interruption on Friday (14:30-15:12 UTC) affected 12,000 EU-West users due to a misconfigured load balancer. No data loss occurred. An automated health-check has been deployed, and a post-mortem will be shared by week's end."
+  }
+]

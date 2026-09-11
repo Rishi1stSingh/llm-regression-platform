@@ -15,4 +15,12 @@ class ClassificationEvaluator(BaseEvaluator):
         actual = self.client.classify(self.prompt, case.input).strip().lower()
         if actual not in self.labels:
             return CaseResult(case.id, case.input, case.expected, actual, False, "Invalid LLM label")
-        return CaseResult(case.id, case.input, case.expected, actual, actual == case.expected)
+        passed = actual == case.expected
+        return CaseResult(
+            case_id=case.id,
+            input=case.input,
+            expected=case.expected,
+            actual=actual,
+            passed=passed,
+            reason="Exact label match" if passed else "Label mismatch",
+        )
